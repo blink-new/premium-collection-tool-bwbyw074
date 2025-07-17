@@ -14,6 +14,7 @@ const pasIntegrationsRoutes = require('./routes/pasIntegrations');
 const reconciliationRoutes = require('./routes/reconciliation');
 const apiKeysRoutes = require('./routes/apiKeys');
 const cellCaptivesRoutes = require('./routes/cellCaptives');
+const cellCaptiveApiRoutes = require('./routes/cellCaptiveApi');
 const webhooksRoutes = require('./routes/webhooks');
 
 const { initializeDatabase } = require('./database/init');
@@ -40,6 +41,7 @@ app.use('/api/pas-integrations', pasIntegrationsRoutes);
 app.use('/api/reconciliation', reconciliationRoutes);
 app.use('/api/keys', apiKeysRoutes);
 app.use('/api/cell-captives', cellCaptivesRoutes);
+app.use('/api/captive', cellCaptiveApiRoutes);
 app.use('/api/webhooks', webhooksRoutes);
 
 // Health check
@@ -71,9 +73,13 @@ const PORT = process.env.PORT || 5000;
 
 async function startServer() {
   try {
-    // Initialize database
-    await initializeDatabase();
-    console.log('✅ Database initialized successfully');
+    // Initialize database (skip for demo)
+    try {
+      await initializeDatabase();
+      console.log('✅ Database initialized successfully');
+    } catch (error) {
+      console.log('⚠️ Database not available, running in demo mode');
+    }
 
     // Setup WebSocket server
     setupWebSocketServer(server);
@@ -83,6 +89,7 @@ async function startServer() {
     server.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+      console.log(`📚 API Documentation: See CELL_CAPTIVE_API.md`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);

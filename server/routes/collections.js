@@ -246,7 +246,7 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // Update collection status
-router.patch('/:id/status', authenticateToken, async (req, res) => {
+router.patch('/update-status/:id', authenticateToken, async (req, res) => {
   const client = await pool.connect();
   
   try {
