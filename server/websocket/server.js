@@ -133,6 +133,11 @@ function broadcastUpdate(type, data, channel = null) {
   });
 }
 
+// Alias for backward compatibility
+function broadcastToClients(type, data, channel = null) {
+  return broadcastUpdate(type, data, channel);
+}
+
 function getConnectedClients() {
   return Array.from(clients.values()).map(client => ({
     userId: client.userId,
@@ -146,5 +151,6 @@ function getConnectedClients() {
 module.exports = {
   setupWebSocketServer,
   broadcastUpdate,
+  broadcastToClients,
   getConnectedClients
 };

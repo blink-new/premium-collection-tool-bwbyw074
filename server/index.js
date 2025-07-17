@@ -13,6 +13,7 @@ const debitOrdersRoutes = require('./routes/debitOrders');
 const pasIntegrationsRoutes = require('./routes/pasIntegrations');
 const reconciliationRoutes = require('./routes/reconciliation');
 const apiKeysRoutes = require('./routes/apiKeys');
+const cellCaptivesRoutes = require('./routes/cellCaptives');
 const webhooksRoutes = require('./routes/webhooks');
 
 const { initializeDatabase } = require('./database/init');
@@ -38,6 +39,7 @@ app.use('/api/debit-orders', debitOrdersRoutes);
 app.use('/api/pas-integrations', pasIntegrationsRoutes);
 app.use('/api/reconciliation', reconciliationRoutes);
 app.use('/api/keys', apiKeysRoutes);
+app.use('/api/cell-captives', cellCaptivesRoutes);
 app.use('/api/webhooks', webhooksRoutes);
 
 // Health check
